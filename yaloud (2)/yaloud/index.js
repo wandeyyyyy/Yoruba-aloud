@@ -145,3 +145,116 @@ adminIdElement.textContent = "Welcome, " + userName;
 }
 }
 })
+
+
+
+
+
+
+// Make authorized user login have a request for the data from the API
+Code
+function makeAuthorizedRequest(url, token) {
+  const requestOptions = {
+   method: 'GET',
+   headers: {
+    'Authorization': `Bearer ${token}`
+   }
+  };
+  return fetch(url, requestOptions)
+  .then(response => response.json())
+  .catch(error => {
+    console.error('API Request Error:', error);
+    throw error;
+  });
+}
+
+// Function to fetch and update admin dashboard data
+function fetchAdminDashboardData(token) {
+  const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/admin_dashboardapi";
+  return makeAuthorizedRequest(url, token);
+}
+
+// Function to fetch and update all students data
+function fetchAllStudents(token) {
+  const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/get_all_students";
+  return makeAuthorizedRequest(url, token);
+}
+
+// Function to fetch and update top three students data
+function fetchTopThreeStudents(token) {
+  const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/top_three_students";
+  return makeAuthorizedRequest(url, token);
+}
+
+// Fetch admin details and update the dashboard
+function dashboardApi() {
+  const userJson = localStorage.getItem("admin");
+  if (userJson) {
+   const user = JSON.parse(userJson);
+   const userToken = user.token;
+   fetchAdminDashboardData(userToken)
+    .then(data => {
+     console.log('Admin Dashboard Data:', data);
+     // Update your dashboard with the data here
+     updateDashboard(data);
+    })
+    .catch(error => console.error('Admin Dashboard Error:', error));
+  }
+}
+
+// Fetch and update all students data
+function fetchAllStudentsApi() {
+  const userJson = localStorage.getItem("admin");
+  if (userJson) {
+   const user = JSON.parse(userJson);
+   const userToken = user.token;
+   fetchAllStudents(userToken)
+    .then(data => {
+     console.log('All Students Data:', data);
+     // Update your student data with the data here
+     updateAllStudents(data);
+    })
+    .catch(error => console.error('All Students Error:', error));
+  }
+}
+
+// Function to update the dashboard with data
+function updateDashboard(data) {
+  const categoryElement = document.getElementById("category");
+  const learnmatElement = document.getElementById("learnmat");
+  const subCatElement = document.getElementById("subCat");
+  const quizElement = document.getElementById("quiz");
+  const studentElement = document.getElementById("student");
+  categoryElement.textContent = data.total_number_of_categories;
+  learnmatElement.textContent = data.total_number_of_learningmaterial;
+  subCatElement.textContent = data.total_number_of_subcategories;
+  quizElement.textContent = data.total_number_of_quize;
+  studentElement.textContent = data.total_number_of_students;
+}
+
+// Function to update all students data
+function updateAllStudents(data) {
+  const tableId = document.getElementById("table-id");
+  tableId.innerHTML = "";
+  data.forEach(student => {
+   const row = document.createElement("tr");
+   row.innerHTML = `
+    <td>${student.name}</td>
+    <td>${student.email}</td>
+    <td>${student.phone_number}</td>
+    <td>${student.position}</td>
+    <td>${student.total_score}</td>
+   `;
+   tableId.appendChild(row);
+  });
+}
+
+function closeDashModal() {
+  const modal = document.getElementById("dash-modal");
+  modal.style.display = "none";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  dashboardApi();
+  fetchAllStudentsApi();
+});
