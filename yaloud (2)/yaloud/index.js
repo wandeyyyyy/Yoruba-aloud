@@ -132,19 +132,19 @@ function logIn(event) {
         .catch(error => console.log('error', error));
     }
 }
-document.addEventListener("DOMContentLoaded", () => {
-// retrieve user details from local storage
-const newUser = localStorage.getItem("admin");
-if(newUser){
-const user = JSON.parse(newUser);
-const userName = user.name;
+// document.addEventListener("DOMContentLoaded", () => {
+// // retrieve user details from local storage
+// const newUser = localStorage.getItem("admin");
+// if(newUser){
+// const user = JSON.parse(newUser);
+// const userName = user.name;
 
-const adminIdElement = document.getElementById("adminId");
-if(adminIdElement){
-adminIdElement.textContent = "Welcome, " + userName;
-}
-}
-})
+// const adminIdElement = document.getElementById("adminId");
+// if(adminIdElement){
+// adminIdElement.textContent = "Welcome, " + userName;
+// }
+// } 
+// })
 
 
 
@@ -152,7 +152,6 @@ adminIdElement.textContent = "Welcome, " + userName;
 
 
 // Make authorized user login have a request for the data from the API
-Code
 function makeAuthorizedRequest(url, token) {
   const requestOptions = {
    method: 'GET',
@@ -169,92 +168,277 @@ function makeAuthorizedRequest(url, token) {
 }
 
 // Function to fetch and update admin dashboard data
-function fetchAdminDashboardData(token) {
-  const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/admin_dashboardapi";
-  return makeAuthorizedRequest(url, token);
-}
+// function fetchAdminDashboardData(token) { 
+//   const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/admin_dashboardapi";
+//   return makeAuthorizedRequest(url, token);
+// }
 
 // Function to fetch and update all students data
-function fetchAllStudents(token) {
-  const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/get_all_students";
-  return makeAuthorizedRequest(url, token);
-}
+// function fetchAllStudents(token) {
+//   const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/get_all_students";
+//   return makeAuthorizedRequest(url, token);
+// }
 
 // Function to fetch and update top three students data
-function fetchTopThreeStudents(token) {
-  const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/top_three_students";
-  return makeAuthorizedRequest(url, token);
-}
+// function fetchTopThreeStudents(token) {
+//   const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/top_three_students";
+//   return makeAuthorizedRequest(url, token);
+// }
 
 // Fetch admin details and update the dashboard
-function dashboardApi() {
-  const userJson = localStorage.getItem("admin");
-  if (userJson) {
-   const user = JSON.parse(userJson);
-   const userToken = user.token;
-   fetchAdminDashboardData(userToken)
-    .then(data => {
-     console.log('Admin Dashboard Data:', data);
-     // Update your dashboard with the data here
-     updateDashboard(data);
-    })
-    .catch(error => console.error('Admin Dashboard Error:', error));
-  }
-}
+// function dashboardApi() {
+//   const userJson = localStorage.getItem("admin");
+//   if (userJson) {
+//    const user = JSON.parse(userJson);
+//    const userToken = user.token;
+//    fetchAdminDashboardData(userToken)
+//     .then(data => {
+//      console.log('Admin Dashboard Data:', data);
+//      // Update your dashboard with the data here
+//      updateDashboard(data);
+//     })
+//     .catch(error => console.error('Admin Dashboard Error:', error));
+//   }
+// }
 
 // Fetch and update all students data
-function fetchAllStudentsApi() {
-  const userJson = localStorage.getItem("admin");
-  if (userJson) {
-   const user = JSON.parse(userJson);
-   const userToken = user.token;
-   fetchAllStudents(userToken)
-    .then(data => {
-     console.log('All Students Data:', data);
-     // Update your student data with the data here
-     updateAllStudents(data);
-    })
-    .catch(error => console.error('All Students Error:', error));
-  }
-}
+// function fetchAllStudentsApi() {
+//   const userJson = localStorage.getItem("admin");
+//   if (userJson) {
+//    const user = JSON.parse(userJson);
+//    const userToken = user.token;
+//    fetchAllStudents(userToken)
+//     .then(data => {
+//      console.log('All Students Data:', data);
+//      // Update your student data with the data here
+//      updateAllStudents(data);
+//     })
+//     .catch(error => console.error('All Students Error:', error));
+//   }
+// }
 
 // Function to update the dashboard with data
-function updateDashboard(data) {
+// function updateDashboard(data) {
+//   const categoryElement = document.getElementById("category");
+//   const learnmatElement = document.getElementById("learnmat");
+//   const subCatElement = document.getElementById("subCat");
+//   const quizElement = document.getElementById("quiz");
+//   const studentElement = document.getElementById("student");
+//   categoryElement.textContent = data.total_number_of_categories;
+//   learnmatElement.textContent = data.total_number_of_learningmaterial;
+//   subCatElement.textContent = data.total_number_of_subcategories;
+//   quizElement.textContent = data.total_number_of_quize;
+//   studentElement.textContent = data.total_number_of_students;
+// }
+
+// Function to update all students data
+// function updateAllStudents(data) {
+//   const tableId = document.getElementById("table-id");
+//   tableId.innerHTML = "";
+//   data.forEach(student => {
+//    const row = document.createElement("tr");
+//    row.innerHTML = `
+//     <td>${student.name}</td>
+//     <td>${student.email}</td>
+//     <td>${student.phone_number}</td>
+//     <td>${student.position}</td>
+//     <td>${student.total_score}</td>
+//    `;
+//    tableId.appendChild(row);
+//   });
+// }
+
+// function closeDashModal(){
+//   const modal = document.getElementById("dash-modal");
+//  modal.style.display = "block";
+// }
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   dashboardApi();
+//   fetchAllStudentsApi();
+  
+// });
+
+
+
+function dashboardApi() {
+    
+    const  getdmin = document.getElementById("adminId")
   const categoryElement = document.getElementById("category");
   const learnmatElement = document.getElementById("learnmat");
   const subCatElement = document.getElementById("subCat");
   const quizElement = document.getElementById("quiz");
   const studentElement = document.getElementById("student");
-  categoryElement.textContent = data.total_number_of_categories;
-  learnmatElement.textContent = data.total_number_of_learningmaterial;
-  subCatElement.textContent = data.total_number_of_subcategories;
-  quizElement.textContent = data.total_number_of_quize;
-  studentElement.textContent = data.total_number_of_students;
+
+    // call the spinner to display
+const getSpin = document.querySelector(".pagemodal");
+getSpin.style.display = "block";
+
+
+// get token from local storage
+const getToken = localStorage.getItem("admin");
+const myToken = JSON.parse(getToken);
+const token = myToken.token
+
+const dashHeader = new Headers();
+dashHeader.append("Authorization", `Bearer ${token}`);
+
+
+const dashMethod = {
+    method: 'GET',
+    headers: dashHeader
 }
 
-// Function to update all students data
-function updateAllStudents(data) {
-  const tableId = document.getElementById("table-id");
-  tableId.innerHTML = "";
-  data.forEach(student => {
-   const row = document.createElement("tr");
-   row.innerHTML = `
-    <td>${student.name}</td>
-    <td>${student.email}</td>
-    <td>${student.phone_number}</td>
-    <td>${student.position}</td>
-    <td>${student.total_score}</td>
-   `;
-   tableId.appendChild(row);
-  });
+const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/admin_dashboardapi"
+
+fetch(url, dashMethod)
+.then(response => response.json())
+.then(result =>  {
+    console.log(result);
+    getdmin.textContent = "Welcome, " + result.admin_name;
+    categoryElement.textContent = result.total_number_of_students;
+    learnmatElement.textContent = result.total_number_of_learningmaterial;
+    subCatElement.textContent = result.total_number_of_subcategories;
+    quizElement.textContent = result.total_number_of_quize;
+    studentElement.textContent = result.total_number_of_students;
+
+    getSpin.style.display = "none";
+
+})
+.catch(console.log("error", error))
 }
 
+
+function getDashBoardApi() {
+    const getAdmin = document.getElementById("adminId");
+    const getCategory = document.getElementById("category");
+    const getLearnmat = document.getElementById("learnmat");
+    const getSubCat = document.getElementById("subCat");
+    const getQuiz = document.getElementById("quiz");
+    const getStudent = document.getElementById("student");
+    const getSpin = document.querySelector(".pagemodal");
+    getSpin.style.display = "block";
+    const getToken = localStorage.getItem("admin");
+    const myToken = JSON.parse(getToken);
+    const token = myToken.token;
+    const dashHeader = new Headers();
+    dashHeader.append("Authorization", `Bearer ${token}`);
+    const dashMethod = {
+        method: 'GET',
+        headers: dashHeader
+    }
+    const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/admin_dashboardapi";
+    fetch(url, dashMethod)
+    .then(response => response.json())
+    .then(result => {
+        console.log(result)
+        getAdmin.innerHTML = `${result.admin_name}`;
+        getCategory.innerHTML = `${result.total_number_of_categories}`;
+        getLearnmat.innerHTML = `${result.total_number_of_learningmaterial}`;
+        getSubCat.innerHTML = `${result.total_number_of_subcategories}`;
+        getQuiz.innerHTML = `${result.total_number_of_quize}`;
+        getStudent.innerHTML = `${result.total_number_of_students}`;
+        getSpin.style.display = "none";
+    })
+    .catch(error => console.log('error', error));
+}
+function studentModal(event) {
+    event.preventDefault();
+    const getTopThree = document.querySelector(".allstudent");
+    const getModal = document.getElementById("dash-modal");
+    getModal.style.display = "block";
+    const getToken = localStorage.getItem("admin");
+    const myToken = JSON.parse(getToken);
+    const token = myToken.token;
+    const dashHeader = new Headers();
+    dashHeader.append("Authorization", `Bearer ${token}`);
+    const dashMethod = {
+        method: 'GET',
+        headers: dashHeader
+    }
+    let data = [];
+    const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/top_three_students";
+    fetch(url, dashMethod)
+    .then(response => response.json())
+    .then(result => {
+        console.log(result)
+        if (result.length === 0) {
+            getTopThree.innerHTML = "No Records Found!";
+        }
+        else {
+            result.map((item) => {
+                data += `
+                  <div class="search-card">
+                    <div class="d-flex justify-content-between">
+                      <h5>Name:</h5>
+                      <p>${item.name}</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <h5>Email:</h5>
+                      <p>${item.email}</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <h5>Phone Number:</h5>
+                      <p>${item.phone_number}</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <h5>Position:</h5>
+                      <p>${item.position}</p>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                      <h5>Total Score:</h5>
+                      <p>${item.total_score}</p>
+                    </div>
+                  </div>
+                `
+                getTopThree.innerHTML = data;
+            })
+        }
+    })
+    .catch(error => console.log('error', error));
+}
 function closeDashModal() {
-  const modal = document.getElementById("dash-modal");
-  modal.style.display = "none";
+    const getModal = document.getElementById("dash-modal");
+    getModal.style.display = "none";
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  dashboardApi();
-  fetchAllStudentsApi();
-});
+function getAllStudents() {
+    const getTableBody = document.getElementById("table-id");
+    const getSpin = document.querySelector(".pagemodal");
+    getSpin.style.display = "block";
+    const getToken = localStorage.getItem("admin");
+    const myToken = JSON.parse(getToken);
+    const token = myToken.token;
+    const dashHeader = new Headers();
+    dashHeader.append("Authorization", `Bearer ${token}`);
+    const dashMethod = {
+        method: 'GET',
+        headers: dashHeader
+    }
+    let data = [];
+    const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/get_all_students";
+    fetch(url, dashMethod)
+    .then(response => response.json())
+    .then(result => {
+        console.log(result)
+        if (result.length === 0) {
+            getTableBody.innerHTML = "No Records Found!";
+            getSpin.style.display = "none";
+        }
+        else {
+            result.map((item) => {
+                data += `
+                   <tr>
+                      <td>${item.name}</td>
+                      <td>${item.email}</td>
+                      <td>${item.phone_number}</td>
+                      <td>${item.position}</td>
+                      <td>${item.total_score}</td>
+                   </tr>
+                `
+                getTableBody.innerHTML = data;
+                getSpin.style.display = "none";
+            })
+        }
+    })
+    .catch(error => console.log('error', error));
+}
