@@ -152,20 +152,20 @@ function logIn(event) {
 
 
 // Make authorized user login have a request for the data from the API
-function makeAuthorizedRequest(url, token) {
-  const requestOptions = {
-   method: 'GET',
-   headers: {
-    'Authorization': `Bearer ${token}`
-   }
-  };
-  return fetch(url, requestOptions)
-  .then(response => response.json())
-  .catch(error => {
-    console.error('API Request Error:', error);
-    throw error;
-  });
-}
+// function makeAuthorizedRequest(url, token) {
+//   const requestOptions = {
+//    method: 'GET',
+//    headers: {
+//     'Authorization': `Bearer ${token}`
+//    }
+//   };
+//   return fetch(url, requestOptions)
+//   .then(response => response.json())
+//   .catch(error => {
+//     console.error('API Request Error:', error);
+//     throw error;
+//   });
+// }
 
 // Function to fetch and update admin dashboard data
 // function fetchAdminDashboardData(token) { 
