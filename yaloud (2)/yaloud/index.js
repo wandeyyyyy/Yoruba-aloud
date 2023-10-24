@@ -261,55 +261,10 @@ function logIn(event) {
 
 
 
-function dashboardApi() {
-    
-    const  getdmin = document.getElementById("adminId")
-  const categoryElement = document.getElementById("category");
-  const learnmatElement = document.getElementById("learnmat");
-  const subCatElement = document.getElementById("subCat");
-  const quizElement = document.getElementById("quiz");
-  const studentElement = document.getElementById("student");
-
-    // call the spinner to display
-const getSpin = document.querySelector(".pagemodal");
-getSpin.style.display = "block";
-
-
-// get token from local storage
-const getToken = localStorage.getItem("admin");
-const myToken = JSON.parse(getToken);
-const token = myToken.token
-
-const dashHeader = new Headers();
-dashHeader.append("Authorization", `Bearer ${token}`);
-
-
-const dashMethod = {
-    method: 'GET',
-    headers: dashHeader
-}
-
-const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/admin_dashboardapi"
-
-fetch(url, dashMethod)
-.then(response => response.json())
-.then(result =>  {
-    console.log(result);
-    getdmin.textContent = "Welcome, " + result.admin_name;
-    categoryElement.textContent = result.total_number_of_students;
-    learnmatElement.textContent = result.total_number_of_learningmaterial;
-    subCatElement.textContent = result.total_number_of_subcategories;
-    quizElement.textContent = result.total_number_of_quize;
-    studentElement.textContent = result.total_number_of_students;
-
-    getSpin.style.display = "none";
-
-})
-.catch(console.log("error", error))
-}
 
 
 function getDashBoardApi() {
+    // get all required id from the html , store in a variable
     const getAdmin = document.getElementById("adminId");
     const getCategory = document.getElementById("category");
     const getLearnmat = document.getElementById("learnmat");
@@ -318,11 +273,16 @@ function getDashBoardApi() {
     const getStudent = document.getElementById("student");
     const getSpin = document.querySelector(".pagemodal");
     getSpin.style.display = "block";
-    const getToken = localStorage.getItem("admin");
-    const myToken = JSON.parse(getToken);
-    const token = myToken.token;
+
+
+    const getToken = localStorage.getItem("admin"); //get admin data from local storage
+    const myToken = JSON.parse(getToken); //convert it to object
+    const token = myToken.token; //get only the admin token
+
+
     const dashHeader = new Headers();
     dashHeader.append("Authorization", `Bearer ${token}`);
+    
     const dashMethod = {
         method: 'GET',
         headers: dashHeader
@@ -623,4 +583,7 @@ function updateCategory(event) {
         })
         .catch(error => console.log('error', error));
     }
+}
+function deleteCategory(){
+    
 }
