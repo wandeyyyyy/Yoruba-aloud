@@ -499,6 +499,9 @@ function getCategoryList() {
     })
     .catch(error => console.log('error', error));
 }
+
+
+
 let globalId;
 function modalBox(catId, name) {
     globalId = catId;
@@ -584,6 +587,51 @@ function updateCategory(event) {
         .catch(error => console.log('error', error));
     }
 }
-function deleteCategory(){
-    
+
+function delCat(subCatId){
+    globalId = subCatId; 
+    console.log(subCatId);
+ 
+    const getToken = localStorage.getItem("admin");
+    const myToken = JSON.parse(getToken);
+    const token = myToken.token;
+ 
+
+    const dashHeader = new Headers();
+    dashHeader.append("Authorization", `Bearer ${token}`);
+
+    const dashMethod = {
+        method: 'GET',
+        headers: dashHeader
+    }
+    const url = `https://pluralcodesandbox.com/yorubalearning/api/admin/delete_category/${subCatId}`;
+
+    fetch(url, dashMethod)
+    .then(response => response.json())
+    .then(result => {
+        console.log(result)
+        if (result.status === "success") {
+            Swal.fire({
+                icon: 'success',
+                text: `${result.message}`,
+                confirmButtonColor: '#2D85DE'
+            })
+            setTimeout(() => {
+                location.reload();
+            }, 3000)
+        }
+        else {
+            Swal.fire({
+                icon: 'info',
+                text: `${result.message}`,
+                confirmButtonColor: '#2D85DE'
+            })
+        }
+    })
+    .catch(error => console.log('error', error));
 }
+
+
+
+
+
