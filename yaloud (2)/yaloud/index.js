@@ -484,9 +484,10 @@ function getCategoryList() {
             result.map((item) => {
                 data += `
                     <div class="search-card">
-                      <img src=${item.image} alt="image">
+                    <a href="details.html?name=${item.name}&id=${item.id}">  <img src=${item.image} alt="image"></a>
                       <p class="mt-3">${item.name}</p>
                       <div class="text-right">
+                      
                         <button class="update-button" onclick="modalBox(${item.id})">update</button>
                         <button class="delete-button" onclick="delCat(${item.id})">delete</button>
                       </div>
@@ -588,48 +589,67 @@ function updateCategory(event) {
     }
 }
 
-function delCat(subCatId){
-    globalId = subCatId; 
-    console.log(subCatId);
- 
-    const getToken = localStorage.getItem("admin");
-    const myToken = JSON.parse(getToken);
-    const token = myToken.token;
- 
-
-    const dashHeader = new Headers();
-    dashHeader.append("Authorization", `Bearer ${token}`);
-
-    const dashMethod = {
-        method: 'GET',
-        headers: dashHeader
-    }
-    const url = `https://pluralcodesandbox.com/yorubalearning/api/admin/delete_category/${subCatId}`;
-
-    fetch(url, dashMethod)
-    .then(response => response.json())
-    .then(result => {
-        console.log(result)
-        if (result.status === "success") {
-            Swal.fire({
-                icon: 'success',
-                text: `${result.message}`,
-                confirmButtonColor: '#2D85DE'
-            })
-            setTimeout(() => {
-                location.reload();
-            }, 3000)
-        }
-        else {
-            Swal.fire({
-                icon: 'info',
-                text: `${result.message}`,
-                confirmButtonColor: '#2D85DE'
-            })
-        }
+function delCat(catIdDel) {
+    Swal.fire({
+        icon: 'question',
+        text: 'Are you sure you want to delete category?',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        confirmButtonColor: '#2D85DE'
     })
-    .catch(error => console.log('error', error));
+    .then(result => {
+        if (result.isConfirmed){
+            const getToken = localStorage.getItem("admin");
+            const myToken = JSON.parse(getToken);
+            const token = myToken.token;
+            const dashHeader = new Headers();
+            dashHeader.append("Authorization", `Bearer ${token}`);
+            const dashMethod = {
+                method: 'GET',
+                headers: dashHeader,
+            }
+            const url = `https://pluralcodesandbox.com/yorubalearning/api/admin/delete_category/${catIdDel}`;
+            
+            fetch(url, dashMethod)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result)
+                if (result.status === "success") {
+                    Swal.fire({
+                        icon: 'success',
+                        text: `${result.message}`,
+                        confirmButtonColor: '#2D85DE'
+                    })
+                    setTimeout(() => {
+                        location.reload();
+                    }, 2000)
+                }
+                else {
+                    Swal.fire({
+                        icon: 'info',
+                        text: `${result.status}`,
+                        confirmButtonColor: '#2D85DE'
+                    })
+                }
+            })
+            .catch(error => console.log('error', error));
+            }
+        } )
 }
+
+
+///////// logout button
+function gotoLoginPage(event){
+    event.preventDefault(); 
+    location.href = "index.html";
+}
+
+
+function logout(){
+    localStorage.clear();
+    location.href = "index.html";
+}
+ 
 
 
 
