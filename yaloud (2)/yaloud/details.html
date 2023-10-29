@@ -13,8 +13,12 @@
     <link rel="stylesheet" href="lineawesome/css/line-awesome.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
+<body onload="showAdminName(), getSubCatDetails()">
+    <div class="pagemodal">
+        <div class="preloader">
+            <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-ripple" style="background:0 0"><circle cx="50" cy="50" r="4.719" fill="none" stroke="#1d3f72" stroke-width="2"><animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="3" keySplines="0 0.2 0.8 1" begin="-1.5s" repeatCount="indefinite"/><animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="3" keySplines="0.2 0 0.8 1" begin="-1.5s" repeatCount="indefinite"/></circle><circle cx="50" cy="50" r="27.591" fill="none" stroke="#5699d2" stroke-width="2"><animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="3" keySplines="0 0.2 0.8 1" begin="0s" repeatCount="indefinite"/><animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="3" keySplines="0.2 0 0.8 1" begin="0s" repeatCount="indefinite"/></circle></svg>
+        </div>
+    </div>
    <input type="checkbox" id="nav-toggle">
     <div class="sidebar bg-dark">
        <div class="sidebar-brand">
@@ -65,7 +69,10 @@
                 <label for="Email" class="font-mulish font-size-14 font-weight-600">Subcategory Images</label>
                 <input type="file" name="subCatImg" id="subCatImg" class="input mb-3" placeholder="Enter Sub-category Image">
 
-                <button class="button button-blue font-weight-700" type="button" onclick="subCategory(event)">Create Category</button>
+                <button class="button button-blue font-weight-700" type="button" onclick="subCategory(event)">
+                    <div class="spinner-border spinner-border-sm text-light spin" role="status">
+                        <span class="sr-only"></span>
+                    </div>Create subcategory</button>
             </form>
            <div class="subItems">
                <div class="row">
@@ -76,7 +83,7 @@
            <div id="my-modal-mode" class="mymodal">
             <div class="modal-content">
                 <div class="modal-header">
-                 <h2>Update Category</h2>
+                 <h2>Update subcategory</h2>
                     <span class="close" onclick="closeModalMode()">&times;</span>
                 </div>
                 <div class="modal-body">
@@ -88,7 +95,10 @@
                     <label for="updateSubImage" class="font-mulish font-size-14 font-weight-600">SubCategory Images</label>
                     <input type="file" name="updateSubImage" id="updateSubImage" class="input mb-3">
     
-                    <button class="button button-blue font-weight-700" onclick="updateSubCategory(event)">Update Category</button>
+                    <button class="button button-blue font-weight-700" onclick="updateSubCategory(event)">
+                        <div class="spinner-border spinner-border-sm text-light spin spinUpdate" role="status">
+                            <span class="sr-only"></span>
+                        </div>Update subcategory</button>
                  </form>
                 </div>
             </div>

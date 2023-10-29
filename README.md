@@ -1,1 +1,0 @@
-Yoruba Learning App Dashboard,designed for administrators and instructors. It provides an inituitive and efficient interface for managing user accounts, tracking learner progress, creating and organizing lesson exercises, and accessing valuable analytics.
