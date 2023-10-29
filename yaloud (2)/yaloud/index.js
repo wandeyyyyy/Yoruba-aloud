@@ -262,7 +262,7 @@ function logIn(event) {
 
 
 
-
+// dashboard
 function getDashBoardApi() {
     // get all required id from the html , store in a variable
     const getAdmin = document.getElementById("adminId");
@@ -357,6 +357,7 @@ function studentModal(event) {
     })
     .catch(error => console.log('error', error));
 }
+// 
 function closeDashModal() {
     const getModal = document.getElementById("dash-modal");
     getModal.style.display = "none";
@@ -402,7 +403,7 @@ function getAllStudents() {
     })
     .catch(error => console.log('error', error));
 }
-
+// create category
 function createCategory(event) {
     event.preventDefault();
     const getSpin = document.querySelector(".spin");
@@ -502,7 +503,7 @@ function getCategoryList() {
 }
 
 
-
+// update cstegory .............
 let globalId;
 function modalBox(catId, name) {
     globalId = catId;
@@ -589,6 +590,7 @@ function updateCategory(event) {
     }
 }
 
+// delete button .................
 function delCat(catIdDel) {
     Swal.fire({
         icon: 'question',
@@ -650,6 +652,9 @@ function logout(){
     location.href = "index.html";
 }
 
+
+
+// subcategory section ......
 function showAdminName() {
 const getName = document.querySelector(".det");
     const params = new URLSearchParams(window.location.search);
@@ -865,6 +870,153 @@ function updateSubCategory(event){
                 })
                 .catch(error => console.log('error', error));
             }
+        }
+
+        // admin profile
+        
+
+        function upDateAdmin(event){
+            event.preventDefault();
+            const getSpin = document.querySelector(".spin2");
+            getSpin.style.display = "inline-block";
+
+            const changeName = document.getElementById("updateName").value;
+            const changeEmail = document.getElementById("updateEmail").value;
+
+            if(changeName === "" || changeEmail === ""){
+                Swal.fire({
+                    icon: "info",
+                    text: "All Fields are Required!",
+                    confirmButtonColor: "#2D85DE"
+                })
+                getSpin.style.display = "none"
+            }
+            else{
+                const adminData = new FormData();
+                adminData.append("name", changeName);
+                adminData.append("email", changeEmail);
+
+                const getToken = localStorage.getItem("admin"); //get admin data from local storage
+                const myToken = JSON.parse(getToken); //convert it to object
+                const token = myToken.token; //get only the admin token
+            
+            
+                const adminHeader = new Headers();
+                adminHeader.append("Authorization", `Bearer ${token}`);
+        
+                const adminMethod = {
+                    method: 'POST',
+                    body: adminData,
+                    headers: adminHeader
+                }
+
+                const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/admin_update_profile";
+                fetch(url, adminMethod)
+                .then(response => response.json())
+                .then(result => {
+                     console.log(result)
+                     if(result.status == "success"){
+                        Swal.fire({
+                    icon: 'success',
+                    text: `${result.message}`,
+                    confirmButtonColor: '#2D85DE'
+                })
+             setTimeout(()=>{
+                localStorage.clear();
+                location.href ="index.html"
+             }, 3000)
+                     }
+                     else{
+                        Swal.fire({
+                            icon: 'info',
+                            text: `${result.message}`,
+                            confirmButtonColor: '#2D85DE'
+                        })
+                        getSpin.style.display = "none";
+                    }
+                })
+                .catch(error => console.log('error', error));
+
+            }
+        }
+      
+        
+        function upDatePassword(event) {
+            event.preventDefault();
+            const getSpin = document.querySelector(".spin2");
+            getSpin.style.display = "inline-block";
+            const currentEmail = document.getElementById("updatePassEmail").value;
+            const newPass = document.getElementById("updatePassword").value;
+            const newConfirmPass = document.getElementById("confirmPassword").value;
+            if (currentEmail === "" || newPass === "" || newConfirmPass === "") {
+                Swal.fire({
+                    icon: 'info',
+                    text: 'All Fields Required!',
+                    confirmButtonColor: '#2D85DE'
+                })
+                getSpin.style.display = "none";
+            }
+            if (newConfirmPass !== newPass) {
+                Swal.fire({
+                    icon: 'info',
+                    text: 'New password do not match',
+                    confirmButtonColor: '#2D85DE'
+                })
+                getSpin.style.display = "none";
+            }
+            else {
+                const getToken = localStorage.getItem("admin");
+                const myToken = JSON.parse(getToken);
+                const token = myToken.token;
+                const dashHeader = new Headers();
+                dashHeader.append("Authorization", `Bearer ${token}`);
+                const catData = new FormData();
+                catData.append("email", currentEmail);
+                catData.append("password", newPass);
+                catData.append("password_confirmation", newConfirmPass);
+                const dashMethod = {
+                    method: 'POST',
+                    headers: dashHeader,
+                    body: catData
+                }
+                const url = "https://pluralcodesandbox.com/yorubalearning/api/admin/admin_update_password";
+                fetch(url, dashMethod)
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                    if (result.status === "success") {
+                        Swal.fire({
+                            icon: 'success',
+                            text: `${result.message}`,
+                            confirmButtonColor: '#2D85DE'
+                        })
+                        setTimeout(() => {
+                            localStorage.clear();
+                            location.href = "index.html"
+                        }, 3000)
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'info',
+                            text: `${result.message}`,
+                            confirmButtonColor: '#2D85DE'
+                        })
+                        getSpin.style.display = "none";
+                    }
+                })
+                .catch(error => console.log('error', error));
+            }
+        }
+
+        function showName(){
+      
+            const getName = localStorage.getItem("admin");
+                const myName = JSON.parse(getName);
+                const adName = myName.name;
+
+                const adminName = document.getElementById("adminId");
+                adminName.textContent = adName;
+            
         }
 
 
