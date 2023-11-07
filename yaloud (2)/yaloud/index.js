@@ -924,6 +924,7 @@ function updateSubCategory(event){
              setTimeout(()=>{
                 localStorage.clear();
                 location.href ="index.html"
+                
              }, 3000)
                      }
                      else{
